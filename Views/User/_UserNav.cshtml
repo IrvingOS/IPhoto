@@ -1,0 +1,7 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<ul class="nav nav-pills flex-column mb-2">
+    <li class="nav-item"><a class="nav-link active" id="photo" asp-page="">我的图库</a></li>
+</ul>
