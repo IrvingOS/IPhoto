@@ -49,13 +49,13 @@ namespace IPhoto.Repositories.Impl
             return await base.GetListAsync(func);
         }
 
-        public async Task<List<TEntity>> PageAsync(int pageNum, int pageSize, RefAsync<int> total)
+        public async virtual Task<List<TEntity>> PageAsync(int pageNum, int pageSize, RefAsync<int> total)
         {
             return await base.Context.Queryable<TEntity>()
                 .ToPageListAsync(pageNum, pageSize, total);
         }
 
-        public async Task<List<TEntity>> PageAsync(Expression<Func<TEntity, bool>> func, int pageNum, int pageSize, RefAsync<int> total)
+        public async virtual Task<List<TEntity>> PageAsync(Expression<Func<TEntity, bool>> func, int pageNum, int pageSize, RefAsync<int> total)
         {
             return await base.Context.Queryable<TEntity>()
                 .Where(func)

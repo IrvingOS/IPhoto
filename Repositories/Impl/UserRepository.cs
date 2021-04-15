@@ -8,6 +8,5 @@ namespace IPhoto.Repositories.Impl
 {
     public class UserRepository : BaseRepository<ApplicationUser>, IUserRepository
     {
-
     }
 }

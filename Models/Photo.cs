@@ -20,6 +20,9 @@ namespace IPhoto.Models
         public int DownloadCount { get; set; }
 
         [SugarColumn(IsIgnore = true)]
+        public ApplicationUser ApplicationUser { get; set; }
+
+        [SugarColumn(IsIgnore = true)]
         public File File { get; set; }
     }
 }
