@@ -2,7 +2,7 @@
 
 namespace IPhoto.Services
 {
-    interface IUserService : IBaseService<ApplicationUser>
+    public interface IUserService : IBaseService<ApplicationUser>
     {
     }
 }

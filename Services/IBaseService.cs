@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IPhoto.Services
 {
-    interface IBaseService<TEntity> where TEntity : class, new()
+    public interface IBaseService<TEntity> where TEntity : class, new()
     {
         Task<bool> InsertAsync(TEntity entity);
 

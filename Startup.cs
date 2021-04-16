@@ -82,6 +82,12 @@ namespace IPhoto
             //BaseRepository<Models.ApplicationUser> baseRepository = new BaseRepository<Models.ApplicationUser>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IFileRepository, FileRepository>();            
+            services.AddScoped<IUserLikeService, UserLikeService>();
+            services.AddScoped<IUserLikeRepository, UserLikeRepository>();
             return services;
         }
     }
