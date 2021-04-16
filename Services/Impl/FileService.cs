@@ -25,11 +25,11 @@ namespace IPhoto.Services.Impl
             {
                 return null;
             }
-            /*ApplicationUser user = _iUserService.GetAsync(userId).Result;
+            ApplicationUser user = _iUserService.GetAsync(userId).Result;
             if (user.HeadPhotoFileId != null)
             {
                 return await base.GetAsync(user.HeadPhotoFileId);
-            } 
+            }
             else
             {
                 return user.Gender switch
@@ -38,8 +38,7 @@ namespace IPhoto.Services.Impl
                     1 => await base.GetAsync("1"),
                     _ => null,
                 };
-            }*/
-            return await base.GetAsync("1");
+            }
         }
     }
 }
