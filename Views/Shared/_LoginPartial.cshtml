@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using IPhoto.Services.Impl
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject FileService fileService
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
@@ -9,15 +11,18 @@
     <li class="nav-item">
         <div class="dropdown">
             <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="rounded-circle" src="https://thirdwx.qlogo.cn/mmopen/vi_32/FrAfaQn9DMaicrITAMbT7Bl9aZ8pKtOYIB0HCkRDdPozBY7ATetpUXw0RG31QIg6ahaXON71sYsia4fHt0hsL7mw/132" style="width: 40px" draggable="false">
+                @if (fileService.GetHeadPhotoByUserId(UserManager.GetUserId(User)).Result != null)
+                {
+                    <img class="rounded-circle" src="@fileService.GetHeadPhotoByUserId(UserManager.GetUserId(User)).Result.Path" style="width: 40px" draggable="false">
+                }
                 @UserManager.GetUserName(User)
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <a id="manage" class="nav-link text-dark dropdown-item btn ml-2" asp-area="" asp-controller="User" asp-action="Index" title="个人中心">个人中心</a>
-                <a id="manage" class="nav-link text-dark dropdown-item btn ml-2" asp-area="Identity" asp-page="/Account/Manage/Index" title="账号管理">账号管理</a>
+            <div class="dropdown-menu pl-1 pr-2" aria-labelledby="dropdownMenu2">
+                <a id="manage" class="nav-link text-dark dropdown-item btn btn-link ml-1 pl-1" asp-area="" asp-controller="User" asp-action="Index" title="个人中心">个人中心</a>
+                <a id="manage" class="nav-link text-dark dropdown-item btn btn-link ml-1 pl-1" asp-area="Identity" asp-page="/Account/Manage/Index" title="账号管理">账号管理</a>
                 <div class="dropdown-divider"></div>
                 <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button id="logout" type="submit" class="nav-link text-dark dropdown-item btn btn-link text-dark ml-2">退出</button>
+                    <button id="logout" type="submit" class="nav-link text-dark dropdown-item btn btn-link text-dark ml-1 pl-1">退出</button>
                 </form>
             </div>
         </div>

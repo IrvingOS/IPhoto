@@ -36,18 +36,18 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "当前密码")]
             public string OldPassword { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "{0}至少 {2} 和最大 {1} 字符长度。", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "新密码")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "确认密码")]
+            [Compare("NewPassword", ErrorMessage = "新密码与确认密码不匹配。")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -56,7 +56,7 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法使用 ID '{_userManager.GetUserId(User)}' 加载用户。");
             }
 
             var hasPassword = await _userManager.HasPasswordAsync(user);
@@ -78,7 +78,7 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法使用 ID '{_userManager.GetUserId(User)}' 加载用户。");
             }
 
             var changePasswordResult = await _userManager.ChangePasswordAsync(user, Input.OldPassword, Input.NewPassword);
@@ -92,8 +92,8 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
+            _logger.LogInformation("用户修改密码成功。");
+            StatusMessage = "您的密码已被修改。";
 
             return RedirectToPage();
         }

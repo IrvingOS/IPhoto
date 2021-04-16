@@ -33,13 +33,13 @@ namespace IPhoto.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "新密码至少 {2} 个字符，最大 {1} 个字符。", MinimumLength = 6)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "确认密码")]
+            [Compare("Password", ErrorMessage = "密码与确认密码不匹配。")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
@@ -49,7 +49,7 @@ namespace IPhoto.Areas.Identity.Pages.Account
         {
             if (code == null)
             {
-                return BadRequest("A code must be supplied for password reset.");
+                return BadRequest("密码重置必须提供一个代码。");
             }
             else
             {

@@ -10,11 +10,11 @@ namespace IPhoto.Services
     {
         Task<bool> InsertAsync(TEntity entity);
 
-        Task<bool> DeleteAsync(int id);
+        Task<bool> DeleteAsync(string id);
 
         Task<bool> UpdateAsync(TEntity entity);
 
-        Task<TEntity> GetAsync(int id);
+        Task<TEntity> GetAsync(string id);
 
         Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> func);
 

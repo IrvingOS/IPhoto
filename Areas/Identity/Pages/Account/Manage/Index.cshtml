@@ -4,27 +4,30 @@
     ViewData["Title"] = "基本信息";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
+@using IPhoto.Services.Impl
+@inject UserManager<ApplicationUser> UserManager
+@inject FileService fileService
 
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-6">
+        <div class="form-group">
+            <div class="row">
+                <label class="col-6" asp-for="Input.PhoneNumber">头像</label>
+                <button type="button" class="btn btn-primary btn-sm col-3">上传新头像</button>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="@fileService.GetHeadPhotoByUserId(UserManager.GetUserId(User)).Result.Path" class="img-thumbnail" alt="...">
+                </div>
+            </div>
+        </div>
         <form id="profile-form" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username">用户名</label>
                 <input asp-for="Username" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-6" asp-for="Input.PhoneNumber">头像</label>
-                    <button type="button" class="btn btn-primary btn-sm col-3">上传新头像</button>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <img src="https://thirdwx.qlogo.cn/mmopen/vi_32/FrAfaQn9DMaicrITAMbT7Bl9aZ8pKtOYIB0HCkRDdPozBY7ATetpUXw0RG31QIg6ahaXON71sYsia4fHt0hsL7mw/132" class="img-thumbnail" alt="...">
-                    </div>
-                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Gender"></label>

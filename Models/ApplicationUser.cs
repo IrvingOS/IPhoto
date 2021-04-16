@@ -16,9 +16,5 @@ namespace IPhoto.Models
         public override string Id { get; set; }
         public string HeadPhotoFileId { get; set; }
         public int Gender { get; set; }
-
-        [NotMapped]
-        [SugarColumn(IsIgnore = true)]
-        public File File { get; set; }
     }
 }

@@ -88,6 +88,8 @@ namespace IPhoto
             services.AddScoped<IFileRepository, FileRepository>();            
             services.AddScoped<IUserLikeService, UserLikeService>();
             services.AddScoped<IUserLikeRepository, UserLikeRepository>();
+            services.AddScoped<UserService>();
+            services.AddScoped<FileService>();
             return services;
         }
     }

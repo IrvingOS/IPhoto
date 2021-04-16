@@ -16,7 +16,7 @@ namespace IPhoto.Services.Impl
             return await _iBaseRepository.InsertAsync(entity);
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
             return await _iBaseRepository.DeleteAsync(id);
         }
@@ -25,7 +25,7 @@ namespace IPhoto.Services.Impl
             return await _iBaseRepository.UpdateAsync(entity);
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public async virtual Task<TEntity> GetAsync(string id)
         {
             return await _iBaseRepository.GetAsync(id);
         }
@@ -45,12 +45,12 @@ namespace IPhoto.Services.Impl
             return await _iBaseRepository.ListAsync(func);
         }
 
-        public async Task<List<TEntity>> PageAsync(int pageNum, int pageSize, RefAsync<int> total)
+        public async virtual Task<List<TEntity>> PageAsync(int pageNum, int pageSize, RefAsync<int> total)
         {
             return await _iBaseRepository.PageAsync(pageNum, pageSize, total);
         }
 
-        public async Task<List<TEntity>> PageAsync(Expression<Func<TEntity, bool>> func, int pageNum, int pageSize, RefAsync<int> total)
+        public async virtual Task<List<TEntity>> PageAsync(Expression<Func<TEntity, bool>> func, int pageNum, int pageSize, RefAsync<int> total)
         {
             return await _iBaseRepository.PageAsync(func, pageNum, pageSize, total);
         }

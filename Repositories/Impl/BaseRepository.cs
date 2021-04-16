@@ -15,21 +15,21 @@ namespace IPhoto.Repositories.Impl
             base.Context = DbScoped.Sugar;
 
             // 创建数据库、创建表
-            base.Context.DbMaintenance.CreateDatabase();
-            /*base.Context.CodeFirst.SetStringDefaultLength(256).InitTables(
-                
+            /*base.Context.DbMaintenance.CreateDatabase();
+            base.Context.CodeFirst.SetStringDefaultLength(256).InitTables(
+                typeof(ApplicationUser),
                 typeof(Photo),
                 typeof(File),
                 typeof(UserLike)
                );*/
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(string id)
         {
             return await base.DeleteByIdAsync(id);
         }
 
-        public async Task<TEntity> GetAsync(int id)
+        public async Task<TEntity> GetAsync(string id)
         {
             return await base.GetByIdAsync(id);
         }

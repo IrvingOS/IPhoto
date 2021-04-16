@@ -46,7 +46,7 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "新邮箱")]
             public string NewEmail { get; set; }
         }
 
@@ -80,7 +80,7 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法使用 ID '{_userManager.GetUserId(User)}' 加载用户。");
             }
 
             if (!ModelState.IsValid)
@@ -102,14 +102,14 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
                     protocol: Request.Scheme);
                 await _emailSender.SendEmailAsync(
                     Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "确认你的电子邮件",
+                    $"请 <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a> 确认您的帐户。");
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = "更改发送的电子邮件的确认链接。请查收你的邮件。";
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = "你的邮件没有改变。";
             return RedirectToPage();
         }
 
@@ -118,7 +118,7 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"无法使用 ID '{_userManager.GetUserId(User)}' 加载用户。");
             }
 
             if (!ModelState.IsValid)
@@ -138,10 +138,10 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "确认你的电子邮件",
+                $"请 <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a> 确认您的帐户。");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "验证邮件发送。请查收你的邮件。";
             return RedirectToPage();
         }
     }
