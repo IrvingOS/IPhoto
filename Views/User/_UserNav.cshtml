@@ -3,5 +3,6 @@
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
 <ul class="nav nav-pills flex-column mb-2">
-    <li class="nav-item"><a class="nav-link active" id="photo" asp-page="">我的图库</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="photo" asp-action="Index">我的图库</a></li>
+    <li class="nav-item"><a class="nav-link @ManageNavPages.CollectionNavClass(ViewContext)" id="photo" asp-action="Collection">我的收藏</a></li>
 </ul>

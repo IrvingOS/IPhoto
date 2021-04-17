@@ -9,12 +9,19 @@ using IPhoto.Models;
 
 namespace IPhoto.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        [Authorize]
+        
         public IActionResult Index()
+        {
+
+            return View();
+        }
+
+        public IActionResult Collection()
         {
 
             return View();
