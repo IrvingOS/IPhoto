@@ -1,22 +1,22 @@
 ﻿@page
 @model ResendEmailConfirmationModel
 @{
-    ViewData["Title"] = "Resend email confirmation";
+    ViewData["Title"] = "重新发送验证邮件";
 }
 
 <h1>@ViewData["Title"]</h1>
-<h4>Enter your email.</h4>
+<h4>输入你的邮箱地址</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
+                <label asp-for="Input.Email">邮箱</label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Resend</button>
+            <button type="submit" class="btn btn-primary">发送</button>
         </form>
     </div>
 </div>

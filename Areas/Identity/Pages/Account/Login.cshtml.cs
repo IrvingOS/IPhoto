@@ -99,7 +99,7 @@ namespace IPhoto.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "无效的登录尝试。");
+                    ModelState.AddModelError(string.Empty, "无效的登录尝试（账号不存在或者未验证邮箱）。");
                     return Page();
                 }
             }

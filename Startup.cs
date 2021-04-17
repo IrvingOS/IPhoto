@@ -1,3 +1,4 @@
+using IPhoto.Common.MessageSender;
 using IPhoto.Repositories;
 using IPhoto.Repositories.Impl;
 using IPhoto.Services;
@@ -5,6 +6,7 @@ using IPhoto.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -88,6 +90,8 @@ namespace IPhoto
             services.AddScoped<IFileRepository, FileRepository>();            
             services.AddScoped<IUserLikeService, UserLikeService>();
             services.AddScoped<IUserLikeRepository, UserLikeRepository>();
+
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<UserService>();
             services.AddScoped<FileService>();
             return services;
