@@ -30,7 +30,7 @@ namespace IPhoto
             #region SqlSugarIOC
             services.AddSqlSugar(new IocConfig()
             {
-                ConnectionString = this.Configuration.GetConnectionString("IPhotoContextConnection"),
+                ConnectionString = "Server=106.52.209.233;Port=3306;Database=IPhoto;Uid=root;Pwd=Irvingsoft1130;",
                 DbType = IocDbType.MySql,
                 IsAutoCloseConnection = true
             });
