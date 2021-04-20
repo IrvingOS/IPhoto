@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IndexModel
+@{
     ViewData["Title"] = "图库";
     Layout = "~/Views/User/_Layout.cshtml";
     ViewData["ActivePage"] = ManageNavPages.Index;
@@ -185,25 +186,29 @@
 <div class="modal fade" id="uploadPhoto" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="uploadPhotoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="uploadPhotoLabel">上传图片</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input class="form-control" />
+            <form asp-controller="User" asp-action="UploadPhoto" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadPhotoLabel">上传图片</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <input id="input-id" type="file" accept="image/*" class="file">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label asp-for="Upload.Title"></label>
+                        <input class="form-control" name="Title" asp-for="Upload.Title" />
+                        <span asp-validation-for="Upload.Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="FileId" asp-for="Upload.FileId" hidden />
+                        <input id="input-id" name="fileinput" type="file" accept="image/*" class="file">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">提交</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -241,3 +246,6 @@
     };
 </script>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

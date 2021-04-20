@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using IPhoto.Models;
+using System.ComponentModel.DataAnnotations;
+using static IPhoto.Views.User.IndexModel;
 
 namespace IPhoto.Controllers
 {
@@ -14,7 +16,16 @@ namespace IPhoto.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
-        
+        public class InputModel
+        {
+            [Required]
+            [Display(Name = "Title")]
+            public string Title { get; set; }
+            
+            [Required]
+            public string FileId { get; set; }
+        }
+
         public IActionResult Index()
         {
 
@@ -26,5 +37,6 @@ namespace IPhoto.Controllers
 
             return View();
         }
+
     }
 }

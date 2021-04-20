@@ -41,14 +41,16 @@ namespace IPhoto.Controllers
             fileinput.CopyTo(new FileStream(_hostingEnvironment.WebRootPath + filePath, FileMode.Create));
 
             Models.File file = new();
+            file.Id = System.Guid.NewGuid().ToString();
             file.Name = filePath[8..];
             file.ContentType = fileinput.ContentType;
             file.Path = filePath;
             file.UserId = _userManager.GetUserId(User);
-
+            file.CreateAt = DateTime.Now;
+            
             if (_iFileService.InsertAsync(file).Result)
             {
-                return ApiResultHelper.Success();
+                return ApiResultHelper.Success(file.Id);
             }
             return ApiResultHelper.Error("文件上传失败！");
         }

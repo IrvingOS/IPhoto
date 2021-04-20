@@ -57,15 +57,15 @@
         $("#input-id").fileinput({
         language: 'zh',　　　　　　　　//使用中文
         theme: 'fa',　　　　　　　　　　
-        uploadUrl: '@Url.Action("ImageRecive", "BeadHouse")',   //服务器url调用路径
+        uploadUrl: '@Url.Action("Upload", "File")',   //服务器url调用路径
         showUpload: true, //显示批量上传按钮
         showCaption: false,//是否显示标题
         showClose: false,
         browseClass: "btn btn-primary", //按钮样式     
         dropZoneEnabled: true,//是否显示拖拽区域
         overwriteInitial: false,
-        maxFileSize: 0,　　　　　　　　　　　　　　　　　　　　//文件最大尺寸
-        maxFilesNum: 1,　　　　　　　　　　　　　　　　　　　　　　//文件最大数量
+        maxFileSize: 102400,　　　　　　　　　　　　　　　　　　　　//文件最大尺寸
+        maxFileNum: 1,　　　　　　　　　　　　　　　　　　　　　　//文件最大数量
         enctype: 'multipart/form-data',
         slugCallback: function (filename) {
             return filename.replace('(', '_').replace(']', '_');
