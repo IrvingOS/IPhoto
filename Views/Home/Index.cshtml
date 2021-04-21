@@ -9,8 +9,8 @@
     <h1 style="display: block; font-size: 36px; line-height: 48px; font-weight: 700; margin-bottom: 30px">才华横溢的摄影作者在这里免费分享最精彩的素材图片。</h1>
     <div class="row">
         <form class="form-inline col-sm-12 col-md-12 my-2 my-lg-0 align-self-center" style="line-height: 60px;">
-            <input class="form-control mr-sm-2 col-sm-4 offset-sm-3 col-md-5 offset-md-2" type="search" placeholder="搜索图片" aria-label="Search" style="height: 45px">
-            <button class="btn btn-outline-success my-2 my-sm-0 col-sm-3 col-md-2" type="submit" style="height: 45px;margin-left:0">
+            <input class="form-control mr-sm-2 col-sm-4 offset-sm-3 col-md-5 offset-md-2" type="search" name="Title" placeholder="搜索图片" aria-label="Search" style="height: 45px">
+            <button class="btn btn-outline-success my-2 my-sm-0 col-sm-3 col-md-2" type="submit" style="height: 45px;margin-left:0" onclick="search()">
                 搜索
             </button>
         </form>
@@ -136,6 +136,10 @@
             navSearch.style.display = "none";
         }
     };
+    function search() {
+        let title = document.getElementsByName("Title");
+        window.location.href = "@Url.Action("Index", "Home")?title=" + title.value;
+    }
     function like(id) {
         data = $.ajax({ url: "/photo/like?id=" + id, async: false });
         console.log(data);

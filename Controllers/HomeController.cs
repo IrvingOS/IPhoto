@@ -20,9 +20,16 @@ namespace IPhoto.Controllers
             this._iPhotoService = photoService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string title)
         {
-            ViewBag.PhotoList = _iPhotoService.ListAsync().Result;
+            if (title != null)
+            {
+                ViewBag.PhotoList = _iPhotoService.ListAsync(p => p.Title.Contains(title)).Result;
+            }
+            else
+            {
+                ViewBag.PhotoList = _iPhotoService.ListAsync().Result;
+            }
             return View();
         }
 
