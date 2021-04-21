@@ -61,11 +61,6 @@ namespace IPhoto.Controllers
         {
             Console.WriteLine(PhotoForm.ToString());
 
-            /*if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-*/
             Photo photo = new();
             photo.Id = "photo" + System.Guid.NewGuid().ToString()[5..];
             photo.UserId = _userManager.GetUserId(User);

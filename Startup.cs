@@ -96,6 +96,7 @@ namespace IPhoto
             services.AddScoped<UserService>();
             services.AddScoped<FileService>();
             services.AddScoped<PhotoService>();
+            services.AddScoped<UserLikeService>();
 
             return services;
         }
