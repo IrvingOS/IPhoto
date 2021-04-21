@@ -98,7 +98,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" onclick="like('@photo.Id')">Like!</button>
-                            <button type="button" class="btn btn-primary">下载</button>
+                            <button type="button" class="btn btn-primary" onclick="download('@photo.FileId')">下载</button>
                         </div>
                     </div>
                 </div>
@@ -138,8 +138,18 @@
     };
     function like(id) {
         data = $.ajax({ url: "/photo/like?id=" + id, async: false });
-        console.log(data.responseJSON.data);
-        document.getElementById("toast-body").innerHTML = data.responseJSON.data;
+        console.log(data);
+        if (data.status == 401) {
+            window.location.href = '/Identity/Account/Login';
+        } else {
+            document.getElementById("toast-body").innerHTML = data.responseJSON.data;
+            $('.toast').toast("show");
+            $('.modal').modal('hide');
+        }
+    };
+    function download(id) {
+        window.location.href = "@Url.Action("downloadPhoto", "file")?id=" + id;
+        document.getElementById("toast-body").innerHTML = "开始下载！";
         $('.toast').toast("show");
         $('.modal').modal('hide');
     }

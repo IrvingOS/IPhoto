@@ -59,8 +59,6 @@ namespace IPhoto.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadPhoto(UploadModel PhotoForm)
         {
-            Console.WriteLine(PhotoForm.ToString());
-
             Photo photo = new();
             photo.Id = "photo" + System.Guid.NewGuid().ToString()[5..];
             photo.UserId = _userManager.GetUserId(User);
@@ -81,6 +79,22 @@ namespace IPhoto.Controllers
             else
             {
                 StatusMessage = "Error!图片上传失败！";
+            }
+            return RedirectToAction(actionName: nameof(Index));
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> DeletePhoto(string id)
+        {
+            var result = await _iPhotoService.DeleteAsync(id);
+
+            if (result)
+            {
+                StatusMessage = "图片删除成功！";
+            }
+            else
+            {
+                StatusMessage = "Error!图片删除失败！";
             }
             return RedirectToAction(actionName: nameof(Index));
         }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.IO;
 
@@ -14,18 +15,21 @@ namespace IPhoto.Controllers
     {
         private readonly IFileService _iFileService;
         private readonly IUserService _iUserService;
+        private readonly IPhotoService _iPhotoService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
         public FileController(IFileService fileService, 
             IUserService userService,
+            IPhotoService photoService,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager, 
             IWebHostEnvironment hostingEnvironment)
         {
             _iFileService = fileService;
             _iUserService = userService;
+            _iPhotoService = photoService;
             _userManager = userManager;
             _signInManager = signInManager;
             _hostingEnvironment = hostingEnvironment;
@@ -81,6 +85,27 @@ namespace IPhoto.Controllers
                 return ApiResultHelper.Success();
             }
             return ApiResultHelper.Error("文件上传失败！");
+        }
+
+        public IActionResult DownLoad(string id)
+        {
+            Models.File file = _iFileService.GetAsync(id).Result;
+            var fileStream = new FileStream(_hostingEnvironment.WebRootPath + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            return File(fileStream, "application/octet-stream", file.Name);
+        }
+        
+        public IActionResult DownLoadPhoto(string id)
+        {
+            Models.File file = _iFileService.GetAsync(id).Result;
+            Photo photo = _iPhotoService.GetAsync(p => p.FileId == id).Result;
+            if (photo != null)
+            {
+                photo.DownloadCount += 1;
+                _iPhotoService.UpdateAsync(photo);
+            }
+
+            var fileStream = new FileStream(_hostingEnvironment.WebRootPath + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            return File(fileStream, "application/octet-stream", file.Name);
         }
     }
 }
