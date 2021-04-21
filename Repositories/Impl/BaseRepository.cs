@@ -40,12 +40,12 @@ namespace IPhoto.Repositories.Impl
             return await base.GetSingleAsync(func);
         }
 
-        public async Task<List<TEntity>> ListAsync()
+        public async virtual Task<List<TEntity>> ListAsync()
         {
             return await base.GetListAsync();
         }
 
-        public async Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> func)
+        public async virtual Task<List<TEntity>> ListAsync(Expression<Func<TEntity, bool>> func)
         {
             return await base.GetListAsync(func);
         }

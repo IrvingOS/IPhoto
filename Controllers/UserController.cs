@@ -10,6 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using static IPhoto.Models.PhotoInputModel;
 using IPhoto.Services;
 using IPhoto.Common.ApiResult;
+using System.Linq.Expressions;
 
 namespace IPhoto.Controllers
 {
@@ -34,6 +35,18 @@ namespace IPhoto.Controllers
         public IActionResult Index()
         {
             ViewBag.StatusMessage = StatusMessage;
+            ViewBag.PhotoList = _iPhotoService.ListAsync(p => p.UserId == _userManager.GetUserId(User)).Result;
+            ViewBag.PhotoCount = 0;
+            ViewBag.LikeCount = 0;
+            ViewBag.DownloadCount = 0;
+
+            foreach(var photo in ViewBag.PhotoList)
+            {
+                ViewBag.PhotoCount++;
+                ViewBag.LikeCount += photo.LikeCount;
+                ViewBag.DownloadCount += photo.DownloadCount;
+            }
+
             return View();
         }
 
@@ -54,7 +67,7 @@ namespace IPhoto.Controllers
             }
 */
             Photo photo = new();
-            photo.Id = System.Guid.NewGuid().ToString();
+            photo.Id = "photo" + System.Guid.NewGuid().ToString()[5..];
             photo.UserId = _userManager.GetUserId(User);
             photo.Title = PhotoForm.Title;
             photo.FileId = PhotoForm.FileId;

@@ -41,7 +41,7 @@ namespace IPhoto.Controllers
             fileinput.CopyTo(new FileStream(_hostingEnvironment.WebRootPath + filePath, FileMode.Create));
 
             Models.File file = new();
-            file.Id = System.Guid.NewGuid().ToString();
+            file.Id = Guid.NewGuid().ToString();
             file.Name = filePath[8..];
             file.ContentType = fileinput.ContentType;
             file.Path = filePath;
