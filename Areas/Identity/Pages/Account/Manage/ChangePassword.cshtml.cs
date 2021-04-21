@@ -34,12 +34,12 @@ namespace IPhoto.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "{0} 不能为空！")]
             [DataType(DataType.Password)]
             [Display(Name = "当前密码")]
             public string OldPassword { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "{0} 不能为空！")]
             [StringLength(100, ErrorMessage = "{0}至少 {2} 和最大 {1} 字符长度。", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "新密码")]

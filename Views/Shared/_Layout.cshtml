@@ -54,23 +54,38 @@
     <script src="~/lib/bootstrap-fileinput/5.1.5/content/Scripts/locales/zh.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
-        $("#input-id").fileinput({
-        language: 'zh',　　　　　　　　//使用中文
-        theme: 'fa',　　　　　　　　　　
-        uploadUrl: '@Url.Action("Upload", "File")',   //服务器url调用路径
-        showUpload: true, //显示批量上传按钮
-        showCaption: false,//是否显示标题
-        showClose: false,
-        browseClass: "btn btn-primary", //按钮样式     
-        dropZoneEnabled: true,//是否显示拖拽区域
-        overwriteInitial: false,
-        maxFileSize: 102400,　　　　　　　　　　　　　　　　　　　　//文件最大尺寸
-        maxFileNum: 1,　　　　　　　　　　　　　　　　　　　　　　//文件最大数量
-        enctype: 'multipart/form-data',
-        slugCallback: function (filename) {
-            return filename.replace('(', '_').replace(']', '_');
-        },
-    });
+        $("#Fileinput").fileinput({
+            language: 'zh',　　　　　　　　//使用中文
+            theme: 'fa',
+            uploadUrl: '@Url.Action("Upload", "File")',   //服务器url调用路径
+            showUpload: true, //显示批量上传按钮
+            showCaption: false,//是否显示标题
+            showClose: false,
+            showRemove: false,
+
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: true,//是否显示拖拽区域
+            overwriteInitial: false,
+            maxFileSize: 102400,　　　　　　　　　　　　　　　　　　　　//文件最大尺寸
+            maxFileNum: 1,　　　　　　　　　　　　　　　　　　　　　　//文件最大数量
+            enctype: 'multipart/form-data',
+            slugCallback: function (filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            },
+            layoutTemplates: {
+                actionDelete: '',
+                actionUpload: ''
+            }
+        }).on("fileuploaded", function (event, data) {
+            if (data.response.code == 200) {
+                $("#FileId").attr("value", data.response.data);
+            }
+        });
+
+        $('#Fileinput').on('filedeleted', function (event, id) {
+            console.log(data);
+            $("#FileId").attr("value", "");
+        });
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

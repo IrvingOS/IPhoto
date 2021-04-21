@@ -1,4 +1,4 @@
-﻿@model IndexModel
+﻿@model IPhoto.Controllers.UserController
 @{
     ViewData["Title"] = "图库";
     Layout = "~/Views/User/_Layout.cshtml";
@@ -7,6 +7,14 @@
 <link rel="stylesheet" href="~/lib/bootstrap-fileinput/5.1.5/content/Content/bootstrap-fileinput/css/fileinput.min.css" />
 
 <h4>管理图库</h4>
+@if (!String.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+    var statusMessageClass = ViewBag.StatusMessage.StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.StatusMessage
+    </div>
+}
 <div class="row">
     <div class="col-md-12" style="margin-bottom: 10px">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-images" viewBox="0 0 16 16">
@@ -186,7 +194,7 @@
 <div class="modal fade" id="uploadPhoto" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="uploadPhotoLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <form asp-controller="User" asp-action="UploadPhoto" method="post">
+            <form method="post" name="PhotoForm" asp-controller="User" asp-action="UploadPhoto">
                 <div class="modal-header">
                     <h5 class="modal-title" id="uploadPhotoLabel">上传图片</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -194,14 +202,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Upload.Title"></label>
                         <input class="form-control" name="Title" asp-for="Upload.Title" />
-                        <span asp-validation-for="Upload.Title" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <input type="text" name="FileId" asp-for="Upload.FileId" hidden />
-                        <input id="input-id" name="fileinput" type="file" accept="image/*" class="file">
+                        <label asp-for="Upload.FileId"></label>
+                        <input id="FileId" name="FileId" asp-for="Upload.FileId" readonly style="width: 0; height: 0; z-index: -1" />
+                        <input id="Fileinput" name="FileInput" type="file" accept="image/*" class="file">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -244,6 +253,8 @@
         newobj.parentNode.setAttribute("ondblclick", "");
 
     };
+//此函数会自动把选定的表单进行序列化并异步提交
+
 </script>
 
 @section Scripts {

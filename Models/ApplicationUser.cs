@@ -14,7 +14,9 @@ namespace IPhoto.Models
     {
         [SugarColumn(IsPrimaryKey = true)]
         public override string Id { get; set; }
+
         public string HeadPhotoFileId { get; set; }
+
         public int Gender { get; set; }
     }
 }

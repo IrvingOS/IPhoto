@@ -1,29 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IPhoto.Views.User
+namespace IPhoto.Models
 {
-    public partial class IndexModel : PageModel
+    public partial class PhotoInputModel
     {
-
-        [BindProperty]
-        public UploadModel Upload { get; set; }
-
         public class UploadModel
         {
             [Required(ErrorMessage = "请输入一个 Title 吧！")]
             [Display(Name = "Title")]
             public string Title { get; set; }
 
+            [Required(ErrorMessage = "请上传图片！")]
+            [Display(Name = "图片")]
             public string FileId { get; set; }
+
+            public string FileInput { get; set; }
         }
     }
-        
 }

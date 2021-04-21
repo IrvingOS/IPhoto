@@ -16,6 +16,8 @@ namespace IPhoto.Models
 
         public string PhotoId { get; set; }
 
+        public DateTime CreateAt { get; set; }
+
         [SugarColumn(IsIgnore = true)]
         public Photo Photo { get; set; }
     }
