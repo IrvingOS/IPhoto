@@ -42,7 +42,7 @@ namespace IPhoto.Controllers
                 return ApiResultHelper.Error("请选择文件后上传！");
             }
             var filePath = "/Photos/" + new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + fileinput.FileName;
-            fileinput.CopyTo(new FileStream(_hostingEnvironment.WebRootPath + filePath, FileMode.Create));
+            fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
 
             Models.File file = new();
             file.Id = Guid.NewGuid().ToString();
@@ -69,7 +69,7 @@ namespace IPhoto.Controllers
             ApplicationUser user = _userManager.GetUserAsync(User).Result;
 
             var filePath = "/Photos/" + new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + fileinput.FileName;
-            fileinput.CopyTo(new FileStream(_hostingEnvironment.WebRootPath + filePath, FileMode.Create));
+            fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
 
             Models.File file = new();
             file.Id = Guid.NewGuid().ToString();
@@ -90,7 +90,8 @@ namespace IPhoto.Controllers
         public IActionResult DownLoad(string id)
         {
             Models.File file = _iFileService.GetAsync(id).Result;
-            var fileStream = new FileStream(_hostingEnvironment.WebRootPath + file.Path, FileMode.Open, FileAccess.ReadWrite);
+
+            var fileStream = new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + file.Path, FileMode.Open, FileAccess.ReadWrite);
             return File(fileStream, "application/octet-stream", file.Name);
         }
         
@@ -104,7 +105,7 @@ namespace IPhoto.Controllers
                 _iPhotoService.UpdateAsync(photo);
             }
 
-            var fileStream = new FileStream(_hostingEnvironment.WebRootPath + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            var fileStream = new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + file.Path, FileMode.Open, FileAccess.ReadWrite);
             return File(fileStream, "application/octet-stream", file.Name);
         }
     }

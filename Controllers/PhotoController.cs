@@ -46,7 +46,7 @@ namespace IPhoto.Controllers
             if (userLike == null)
             {
                 userLike = new();
-                userLike.Id = Guid.NewGuid().ToString();
+                userLike.Id = "like" + System.Guid.NewGuid().ToString()[4..];
                 userLike.PhotoId = Id;
                 userLike.UserId = user.Id;
                 userLike.CreateAt = DateTime.Now;

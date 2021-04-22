@@ -19,11 +19,21 @@ namespace IPhoto.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IPhotoService _iPhotoService;
+        private readonly IUserLikeService _iUserLikeService;
+        private readonly IUserService _iUserService;
+        private readonly IFileService _iFileService;
 
-        public UserController(UserManager<ApplicationUser> userManager, IPhotoService photoService)
+        public UserController(UserManager<ApplicationUser> userManager, 
+            IPhotoService photoService, 
+            IUserLikeService userLikeService,
+            IUserService userService,
+            IFileService fileService)
         {
             this._userManager = userManager;
             this._iPhotoService = photoService;
+            this._iUserLikeService = userLikeService;
+            this._iUserService = userService;
+            this._iFileService = fileService;
         }
 
         [TempData]
@@ -52,7 +62,15 @@ namespace IPhoto.Controllers
 
         public IActionResult Collection()
         {
+            ViewBag.StatusMessage = StatusMessage;
+            ViewBag.LikeList = _iUserLikeService.ListAsync(u => u.UserId == _userManager.GetUserId(User)).Result;
+            ViewBag.LikeCount = 0;
 
+            foreach (var like in ViewBag.LikeList)
+            {
+                ViewBag.LikeCount++;
+                like.Photo.File = _iFileService.GetAsync(like.Photo.FileId).Result;
+            }
             return View();
         }
 
@@ -97,6 +115,27 @@ namespace IPhoto.Controllers
                 StatusMessage = "Error!图片删除失败！";
             }
             return RedirectToAction(actionName: nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteLike(string id)
+        {
+            var userLike = await _iUserLikeService.GetAsync(id);
+            var photo = await _iPhotoService.GetAsync(userLike.PhotoId);
+            photo.LikeCount--;
+
+            var result = await _iUserLikeService.DeleteAsync(id) && await _iPhotoService.UpdateAsync(photo);
+
+            if (result)
+            {
+                StatusMessage = "图片删除成功！";
+            }
+            else
+            {
+                StatusMessage = "Error!图片删除失败！";
+            }
+
+            return RedirectToAction(actionName: nameof(Collection));
         }
     }
 }

@@ -179,9 +179,9 @@
         newobj.parentNode.setAttribute("ondblclick", "");
 
     };
-//此函数会自动把选定的表单进行序列化并异步提交
+
     function download(id) {
-        window.location.href = "@Url.Action("download", "file")?id=" + id;
+        window.location.href = "@Url.Action("Download", "File")?id=" + id;
         document.getElementById("toast-body").innerHTML = "开始下载！";
         $('.toast').toast("show");
         $('.modal').modal('hide');

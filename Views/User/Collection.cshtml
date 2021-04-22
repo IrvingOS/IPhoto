@@ -5,3 +5,94 @@
 }
 
 <h4>管理收藏</h4>
+@if (!String.IsNullOrEmpty(ViewBag.StatusMessage))
+{
+    var statusMessageClass = ViewBag.StatusMessage.StartsWith("Error") ? "danger" : "success";
+    <div class="alert alert-@statusMessageClass alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        @ViewBag.StatusMessage
+    </div>
+}
+<div aria-live="polite" aria-atomic="true" role="alert" style="position: fixed; min-height: 200px; z-index: 999">
+    <div class="toast float-right" id="toast" style="position: fixed; top: 100px; right: 30px; width: 300px" aria-atomic="true" data-delay="10000">
+        <div class="toast-header">
+            <img src="~/image/logo.png" class="rounded mr-2" alt="..." width="30" height="30">
+            <strong class="mr-auto">IPhoto</strong>
+            <small>刚刚</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body" id="toast-body">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" style="margin-bottom: 10px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+        <span>@ViewBag.LikeCount</span>
+    </div>
+</div>
+<div class="row" style="margin-top: 20px">
+    @foreach (var userLike in ViewBag.LikeList)
+    {
+        <div class="col-lg-6 col-md-12 col-sm-12" style="margin-bottom: 10px">
+            <div class="thumbnail">
+                <img src="@userLike.Photo.File.Path" alt="..." style="width: 100%">
+                <div class="caption" style="margin-top: 5px;">
+                    <h5 ondblclick="ShowElement(this)">@userLike.Photo.Title</h5>
+                    <div class="row">
+                        <div class="col-7">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                            <span style="margin-right: 10px">@userLike.Photo.LikeCount</span>
+                        </div>
+                        <div class="col-5">
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#@userLike.Id">删除</button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="download('@userLike.Photo.FileId')">下载</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="@userLike.Id" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">删除 @userLike.Photo.Title？</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        删除后无法撤回！
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="deleteLike('@userLike.Id')">删除</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+    function download(id) {
+        window.location.href = "@Url.Action("DownloadPhoto", "File")?id=" + id;
+        document.getElementById("toast-body").innerHTML = "开始下载！";
+        $('.toast').toast("show");
+    };
+    function deleteLike(id) {
+        window.location.href = "@Url.Action("DeleteLike", "User")?id=" + id;
+    }
+</script>
