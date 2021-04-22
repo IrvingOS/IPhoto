@@ -52,8 +52,19 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/bootstrap-fileinput/5.1.5/content/Scripts/fileinput.js"></script>
     <script src="~/lib/bootstrap-fileinput/5.1.5/content/Scripts/locales/zh.js"></script>
+    <script src="~/js/masonry.js"></script>
+    <script src="~/js/imagesloaded.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
+        var $grid = $('.grid').masonry({
+            itemSelector: '.grid-item',
+            percentPosition: true,
+            columnWidth: '.grid-sizer'
+        });
+        // layout Masonry after each image loads
+        $grid.imagesLoaded().progress(function () {
+            $grid.masonry();
+        });
         $("#Fileinput").fileinput({
             language: 'zh',　　　　　　　　//使用中文
             theme: 'fa',
