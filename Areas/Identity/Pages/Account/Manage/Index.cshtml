@@ -8,6 +8,8 @@
 @inject UserManager<ApplicationUser> UserManager
 @inject FileService fileService
 
+<link rel="stylesheet" href="~/lib/bootstrap-fileinput/5.1.5/content/Content/bootstrap-fileinput/css/fileinput.min.css" />
+
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
@@ -15,7 +17,7 @@
         <div class="form-group">
             <div class="row">
                 <label class="col-6" asp-for="Input.PhoneNumber">头像</label>
-                <button type="button" class="btn btn-primary btn-sm col-3">上传新头像</button>
+                <input id="Headinput" name="FileInput" type="file" accept="image/*" class="file">
             </div>
             <div class="row">
                 <div class="col-6">

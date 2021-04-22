@@ -69,7 +69,8 @@
             <div class="thumbnail">
                 <img src="@photo.File.Path" alt="..." style="width: 100%">
                 <div class="caption" style="margin-top: 5px;">
-                    <h5 ondblclick="ShowElement(this)">@photo.Title</h5>
+                    <h5 ondblclick="editTitle(this, '@photo.Id')">@photo.Title</h5>
+                    <input id="@photo.Id" class="form-control" value="@photo.Title" onblur="submitTitle(this, '@photo.Id')" style="margin-bottom: 5px; display: none"/>
                     <div class="row">
                         <div class="col-7">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -149,7 +150,7 @@
 </div>
 
 <script type="text/javascript">
-    function ShowElement(element) {
+    @*function ShowElement(element) {
         var oldhtml = element.innerHTML;
         //创建新的input元素
         var newobj = document.createElement('input');
@@ -178,8 +179,16 @@
         //设置父节点的双击事件为空
         newobj.parentNode.setAttribute("ondblclick", "");
 
+    };*@
+    function editTitle(element, id) {
+        element.style.display = "none";
+        var input = document.getElementById(id);
+        input.style.display = "";
     };
-
+    function submitTitle(element, id) {
+        $.ajax({ url: "/photo/title?id=" + id + "&title=" + element.value, async: false });
+        window.location.href = "/User";
+    };
     function download(id) {
         window.location.href = "@Url.Action("Download", "File")?id=" + id;
         document.getElementById("toast-body").innerHTML = "开始下载！";

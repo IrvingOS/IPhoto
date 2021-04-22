@@ -57,6 +57,21 @@ namespace IPhoto.Controllers
                 return ApiResultHelper.Success("已添加到我的收藏列表！");
             }
             return ApiResultHelper.Success("已存在于我的收藏列表！");
-        } 
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ApiResult Title(string Id, string Title)
+        {
+            ApplicationUser user = _userManager.GetUserAsync(User).Result;
+            Photo photo = _iPhotoService.GetAsync(Id).Result;
+            if (user.Id != photo.UserId)
+            {
+                return ApiResultHelper.Error("错误请求！");
+            }
+            photo.Title = Title;
+            _iPhotoService.UpdateAsync(photo);
+            return ApiResultHelper.Success("已存在于我的收藏列表！");
+        }
     }
 }

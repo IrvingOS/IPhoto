@@ -45,7 +45,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - IPhoto - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - IPhoto@* - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>*@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -81,7 +81,35 @@
                 $("#FileId").attr("value", data.response.data);
             }
         });
+        $("#Headinput").fileinput({
+            language: 'zh',　　　　　　　　//使用中文
+            theme: 'fa',
+            uploadUrl: '@Url.Action("UploadHeadPhoto", "File")',   //服务器url调用路径
+            showUpload: false, //显示批量上传按钮
+            showCaption: false,//是否显示标题
+            showClose: false,
+            showRemove: false,
 
+            browseClass: "btn btn-primary", //按钮样式
+            dropZoneEnabled: false,//是否显示拖拽区域
+            overwriteInitial: false,
+            maxFileSize: 102400,　　　　　　　　　　　　　　　　　　　　//文件最大尺寸
+            maxFileNum: 1,　　　　　　　　　　　　　　　　　　　　　　//文件最大数量
+            enctype: 'multipart/form-data',
+            slugCallback: function (filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            },
+            layoutTemplates: {
+                actionDelete: '',
+                actionUpload: ''
+            }
+        }).on('filebatchselected', function (event, files) {//选中文件事件
+            $(this).fileinput("upload");
+        }).on("fileuploaded", function (event, data) {
+            if (data.response.code == 200) {
+                window.location.href = "/Identity/Account/Manage";
+            }
+        });
         $('#Fileinput').on('filedeleted', function (event, id) {
             console.log(data);
             $("#FileId").attr("value", "");
