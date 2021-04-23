@@ -25,6 +25,11 @@ namespace IPhoto.Repositories.Impl
                );*/
         }
 
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> func)
+        {
+            return await base.CountAsync(func);
+        }
+
         public async Task<bool> DeleteAsync(string id)
         {
             return await base.DeleteByIdAsync(id);

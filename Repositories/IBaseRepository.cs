@@ -8,6 +8,9 @@ namespace IPhoto.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : class, new()
     {
+
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> func);
+
         Task<bool> InsertAsync(TEntity entity);
 
         Task<bool> DeleteAsync(string id);

@@ -8,6 +8,9 @@ namespace IPhoto.Services
 {
     public interface IBaseService<TEntity> where TEntity : class, new()
     {
+
+        Task<int> CountAsync(Expression<Func<TEntity, bool>> func);
+
         Task<bool> InsertAsync(TEntity entity);
 
         Task<bool> DeleteAsync(string id);

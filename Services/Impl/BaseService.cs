@@ -11,6 +11,11 @@ namespace IPhoto.Services.Impl
     {
         protected IBaseRepository<TEntity> _iBaseRepository;
 
+        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> func)
+        {
+            return await _iBaseRepository.CountAsync(func);
+        }
+
         public async Task<bool> InsertAsync(TEntity entity)
         {
             return await _iBaseRepository.InsertAsync(entity);
