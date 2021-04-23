@@ -20,6 +20,12 @@ namespace IPhoto.Services.Impl
         {
             return await _iBaseRepository.DeleteAsync(id);
         }
+
+        public async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> func)
+        {
+            return await _iBaseRepository.DeleteAsync(func);
+        }
+
         public async Task<bool> UpdateAsync(TEntity entity)
         {
             return await _iBaseRepository.UpdateAsync(entity);

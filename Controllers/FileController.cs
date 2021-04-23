@@ -45,7 +45,7 @@ namespace IPhoto.Controllers
             fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
 
             Models.File file = new();
-            file.Id = Guid.NewGuid().ToString();
+            file.Id = "file" + Guid.NewGuid().ToString()[4..];
             file.Name = filePath[8..];
             file.ContentType = fileinput.ContentType;
             file.Path = filePath;
@@ -72,7 +72,7 @@ namespace IPhoto.Controllers
             fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
 
             Models.File file = new();
-            file.Id = Guid.NewGuid().ToString();
+            file.Id = "file" + Guid.NewGuid().ToString()[4..];
             file.Name = filePath[8..];
             file.ContentType = fileinput.ContentType;
             file.Path = filePath;

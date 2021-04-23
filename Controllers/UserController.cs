@@ -104,7 +104,7 @@ namespace IPhoto.Controllers
         [HttpGet]
         public async Task<IActionResult> DeletePhoto(string id)
         {
-            var result = await _iPhotoService.DeleteAsync(id);
+            var result = await _iPhotoService.DeleteAsync(id) && await _iUserLikeService.DeleteAsync(u => u.PhotoId == id);
 
             if (result)
             {

@@ -89,14 +89,14 @@
                             <span>@photo.DownloadCount</span>
                         </div>
                         <div class="col-5">
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#@photo.Id">删除</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#@photo.File.Id">删除</button>
                             <button type="button" class="btn btn-primary btn-sm" onclick="download('@photo.FileId')">下载</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="@photo.Id" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="@photo.File.Id" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -150,36 +150,6 @@
 </div>
 
 <script type="text/javascript">
-    @*function ShowElement(element) {
-        var oldhtml = element.innerHTML;
-        //创建新的input元素
-        var newobj = document.createElement('input');
-        //为新增元素添加类型
-        newobj.type = 'text';
-        //为新增元素添加value值
-        newobj.value = oldhtml;
-        newobj.classList = "form-control";
-        newobj.style.fontSize = "17px";
-        //为新增元素添加光标离开事件
-        newobj.onblur = function () {
-            //当触发时判断新增元素值是否为空，为空则不修改，并返回原有值
-            element.innerHTML = this.value == "" || this.value.trim() == "" ? oldhtml : this.value;
-            //当触发时设置父节点的双击事件为ShowElement
-            element.setAttribute("ondblclick", "ShowElement(this);");
-        }
-        //设置该标签的子节点为空
-        element.innerHTML = '';
-        //添加该标签的子节点，input对象
-        element.appendChild(newobj);
-        //设置选择文本的内容或设置光标位置（两个参数：start,end；start为开始位置，end为结束位置；如果开始位置和结束位置相同则就是光标位置）
-        newobj.setSelectionRange(0, oldhtml.length);
-        //设置获得光标
-        newobj.focus();
-
-        //设置父节点的双击事件为空
-        newobj.parentNode.setAttribute("ondblclick", "");
-
-    };*@
     function editTitle(element, id) {
         element.style.display = "none";
         var input = document.getElementById(id);

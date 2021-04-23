@@ -30,6 +30,11 @@ namespace IPhoto.Repositories.Impl
             return await base.DeleteByIdAsync(id);
         }
 
+        public override async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> func)
+        {
+            return await base.DeleteAsync(func);
+        }
+
         public async Task<TEntity> GetAsync(string id)
         {
             return await base.GetByIdAsync(id);

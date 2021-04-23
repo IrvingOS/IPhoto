@@ -12,6 +12,8 @@ namespace IPhoto.Services
 
         Task<bool> DeleteAsync(string id);
 
+        Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> func);
+
         Task<bool> UpdateAsync(TEntity entity);
 
         Task<TEntity> GetAsync(string id);
