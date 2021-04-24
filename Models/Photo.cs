@@ -16,6 +16,7 @@ namespace IPhoto.Models
 
         public string UserId { get; set; }
 
+        [SqlSugar.SugarColumn(IsTranscoding = true)]
         public string Title { get; set; }
 
         public string FileId { get; set; }

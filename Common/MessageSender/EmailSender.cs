@@ -31,7 +31,7 @@ namespace IPhoto.Common.MessageSender
             SmtpClient client = new();
             client.ServerCertificateValidationCallback = (s, c, h, e) => true;
             client.Connect("smtp.exmail.qq.com", 465, true);
-            client.Authenticate("iphoto@irvingsoft.top", "PkmRMwQbcRTiHhUi");
+            client.Authenticate("iphoto@irvingsoft.top", "password");
 
             return client.SendAsync(message);
         }

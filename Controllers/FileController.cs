@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.StaticFiles;
 using System;
 using System.IO;
 
@@ -35,6 +34,13 @@ namespace IPhoto.Controllers
             _hostingEnvironment = hostingEnvironment;
         }
 
+        /*
+         * IWebHostEnvironment 接口中 WebRootPath 与 ContentRootPath 的差异
+         * 1. WebRootPath 在 Windows 环境下可以成功获取到项目的静态资源文件夹的路径 /wwwroot，在 Linux 环境下不行
+         * 2. ContentRootPath 在 Linux 环境下可以获取到 /publish 目录所在文件夹
+         *      （一般通过把 publish 目录发送到 Linux 服务器的某个文件夹下来发布线上环境，例如 /IPhoto/publish，此时通过 ContentRootPath 获取到 /IPhoto，然后拼接静态资源文件路径）
+         */
+
         public ApiResult Upload(IFormFile fileinput)
         {
             if(fileinput == null)
@@ -42,7 +48,8 @@ namespace IPhoto.Controllers
                 return ApiResultHelper.Error("请选择文件后上传！");
             }
             var filePath = "/Photos/" + new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + fileinput.FileName;
-            fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
+            fileinput.CopyTo(new FileStream(_hostingEnvironment.WebRootPath + filePath, FileMode.Create));
+            // fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
 
             Models.File file = new();
             file.Id = "file" + Guid.NewGuid().ToString()[4..];
@@ -69,7 +76,8 @@ namespace IPhoto.Controllers
             ApplicationUser user = _userManager.GetUserAsync(User).Result;
 
             var filePath = "/Photos/" + new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds() + fileinput.FileName;
-            fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
+            fileinput.CopyTo(new FileStream(_hostingEnvironment.WebRootPath + filePath, FileMode.Create));
+            // fileinput.CopyTo(new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + filePath, FileMode.Create));
 
             Models.File file = new();
             file.Id = "file" + Guid.NewGuid().ToString()[4..];
@@ -91,7 +99,8 @@ namespace IPhoto.Controllers
         {
             Models.File file = _iFileService.GetAsync(id).Result;
 
-            var fileStream = new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            var fileStream = new FileStream(_hostingEnvironment.WebRootPath + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            // var fileStream = new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + file.Path, FileMode.Open, FileAccess.ReadWrite);
             return File(fileStream, "application/octet-stream", file.Name);
         }
         
@@ -105,7 +114,8 @@ namespace IPhoto.Controllers
                 _iPhotoService.UpdateAsync(photo);
             }
 
-            var fileStream = new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            var fileStream = new FileStream(_hostingEnvironment.WebRootPath + file.Path, FileMode.Open, FileAccess.ReadWrite);
+            // var fileStream = new FileStream(_hostingEnvironment.ContentRootPath + "/publish/wwwroot" + file.Path, FileMode.Open, FileAccess.ReadWrite);
             return File(fileStream, "application/octet-stream", file.Name);
         }
     }

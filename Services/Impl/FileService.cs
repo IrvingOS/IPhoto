@@ -1,8 +1,5 @@
 ﻿using IPhoto.Models;
 using IPhoto.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace IPhoto.Services.Impl

@@ -17,6 +17,7 @@ namespace IPhoto.Models
 
         public string ContentType { get; set; }
 
+        [SqlSugar.SugarColumn(IsTranscoding = true)]
         public string Name { get; set; }
 
         public string Path { get; set; }

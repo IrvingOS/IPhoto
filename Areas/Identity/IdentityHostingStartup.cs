@@ -1,14 +1,10 @@
-﻿using System;
-using System.Configuration;
-using IPhoto.Data;
+﻿using IPhoto.Data;
 using IPhoto.Models;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using System;
 
 [assembly: HostingStartup(typeof(IPhoto.Areas.Identity.IdentityHostingStartup))]
 namespace IPhoto.Areas.Identity
@@ -20,7 +16,7 @@ namespace IPhoto.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<IPhotoContext>(options => {
                     options.UseMySql(
-                        "Server=106.52.209.233;Port=3306;Database=IPhoto;Uid=root;Pwd=Irvingsoft1130;AllowUserVariables=True;sslMode=None;"
+                        "Server=127.0.0.1;Port=3306;Database=IPhoto;Uid=root;Pwd=root;AllowUserVariables=True;sslMode=None;"
                         , new MySqlServerVersion(new Version(10, 1, 40)), mySqlOptions => mySqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend)
                         );
             });

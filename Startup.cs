@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +32,7 @@ namespace IPhoto
             #region SqlSugarIOC
             services.AddSqlSugar(new IocConfig()
             {
-                ConnectionString = "Server=106.52.209.233;Port=3306;Database=IPhoto;Uid=root;Pwd=Irvingsoft1130;",
+                ConnectionString = "Server=127.0.0.1;Port=3306;Database=IPhoto;Uid=root;Pwd=root;",
                 DbType = IocDbType.MySql,
                 IsAutoCloseConnection = true
             });

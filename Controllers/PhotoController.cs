@@ -5,9 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IPhoto.Controllers
 {
@@ -29,7 +26,7 @@ namespace IPhoto.Controllers
         }
 
         [HttpGet]
-        public ApiResult Photo(String Id)
+        public ApiResult Photo(string Id)
         {
             Photo photo = _iPhotoService.GetAsync(Id).Result;
             photo.ApplicationUser = _iUserService.GetAsync(photo.UserId).Result;
