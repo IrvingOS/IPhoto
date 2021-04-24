@@ -22,8 +22,8 @@ Gitee 仓库：[IrvingOS/IPhoto (gitee.com)](https://gitee.com/Irvingsoft/iphoto
 6. 前端插件：[Bootstrap-fileinput](http://bootstrap-fileinput.com/)、[masonry（ImageLoaded）](https://imagesloaded.desandro.com/)、[fontawesome](http://www.fontawesome.com.cn/)
 
 7. 项目依赖包（NuGet 包）
-
-   ![image-20210424131826495](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424131826495.png)
+    
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134236_eb501213_7701512.png "image-20210424131826495.png")
 
 ## 包结构
 
@@ -106,13 +106,13 @@ Linux 下工具选择 VScode 并安装 dotnet （[macOS](https://docs.microsoft.
 
 此时你的数据库结构应该跟下图一样：
 
-![image-20210424124629829](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424124629829.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134333_7a7cf5e6_7701512.png "image-20210424124629829.png")
 
 把以下两个数据库连接字符串中的用户名（Uid）和密码（Pwd）配置成本机 Mysql 安装时配置的用户名和密码。
 
-![image-20210424120537273](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424120537273.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134412_f3771a8a_7701512.png "image-20210424120537273.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134450_6a691f63_7701512.png "image-20210424120738253.png")
 
-![image-20210424120809598](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424120809598.png)
 
 这时候可以启动项目并成功进入首页。
 
@@ -120,7 +120,7 @@ Linux 下工具选择 VScode 并安装 dotnet （[macOS](https://docs.microsoft.
 >
 > Windows 下在调试控制栏中选择启动类型（IIS、IPhoto）
 >
-> ![image-20210424122917969](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424122917969.png)
+> ![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134509_8aaf0c27_7701512.png "image-20210424122917969.png")
 >
 > macOS、Linux 下在终端（终端的目录为 IPhoto）中输入：
 >
@@ -130,7 +130,7 @@ Linux 下工具选择 VScode 并安装 dotnet （[macOS](https://docs.microsoft.
 >
 > **可能出现的报错：**
 >
-> ![image-20210424130248962](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424130248962.png)
+> ![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134526_454baabf_7701512.png "image-20210424130248962.png")
 >
 > 1. 数据库连接字符串的用户名或密码有误
 > 2. 数据库的密码类型有误（可以从网上搜索到相应的解决办法）
@@ -139,7 +139,7 @@ Linux 下工具选择 VScode 并安装 dotnet （[macOS](https://docs.microsoft.
 
 在邮件发送工具类中配置你的邮箱信息。
 
-​	![image-20210424123457398](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424123457398.png)
+​![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134611_2161596f_7701512.png "image-20210424123317566.png")
 
 其中需要替换的部分为第 21 行、33 行、34 行。分别替换成你的邮箱地址、所属的邮箱服务器和端口号、邮箱的 SMTP 密钥。
 
@@ -153,15 +153,15 @@ Linux 下工具选择 VScode 并安装 dotnet （[macOS](https://docs.microsoft.
 
 在 `Views/Shared/_LoginPartial.cshtml` 页面中可以看到调用了一个获取用户头像的方法：`@fileService.GetHeadPhotoByUserId(UserManager.GetUserId(User)).Result.Path`
 
-![image-20210424124030398](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424124030398.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134631_fb595a6c_7701512.png "image-20210424124030398.png")
 
 转到这个方法，可以看到判断用户的头像文件 ID 是否为空，为空则直接根据性别（Gender）获取数据库中男性和女性对应的文件记录。
 
-![image-20210424124309814](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424124309814.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134650_4225e5ad_7701512.png "image-20210424124309814.png")
 
 报错的原因是没有在数据库的 File 表中插入两条默认的头像 File 记录（注意非空字段的填充），如下：
 
-![image-20210424125133585](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210424125133585.png)
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0424/134703_5686c545_7701512.png "image-20210424125133585.png")
 
 当然，你也可以改写 `GetHeadPhotoByUserId` 方法，先判断默认的文件 ID 是否存在，存在则返回文件信息，不存在则返回空。
 
