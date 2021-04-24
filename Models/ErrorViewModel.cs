@@ -1,5 +1,3 @@
-using System;
-
 namespace IPhoto.Models
 {
     public class ErrorViewModel

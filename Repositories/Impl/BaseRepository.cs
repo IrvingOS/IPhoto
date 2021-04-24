@@ -1,6 +1,4 @@
-﻿using IPhoto.Models;
-using MySqlConnector;
-using SqlSugar;
+﻿using SqlSugar;
 using SqlSugar.IOC;
 using System;
 using System.Collections.Generic;

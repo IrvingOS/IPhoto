@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using IPhoto.Models;
-using System.ComponentModel.DataAnnotations;
-using static IPhoto.Models.PhotoInputModel;
+﻿using IPhoto.Models;
 using IPhoto.Services;
-using IPhoto.Common.ApiResult;
-using System.Linq.Expressions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+using static IPhoto.Models.PhotoInputModel;
 
 namespace IPhoto.Controllers
 {

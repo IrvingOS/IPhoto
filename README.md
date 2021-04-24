@@ -15,7 +15,7 @@ Gitee 仓库：[IrvingOS/IPhoto (gitee.com)](https://gitee.com/Irvingsoft/iphoto
 
 3. 数据库：Mysql 8.0.21
 
-4. ORM 框架：[Sqlsugar](https://www.donet5.com/Home/Doc)
+4. ORM 框架：[SqlSugar](https://www.donet5.com/Home/Doc)
 
 5. 前端框架：[Bootstrap 4.0](https://v4.bootcss.com/docs/getting-started/introduction/)
 
@@ -169,7 +169,7 @@ Linux 下工具选择 VScode 并安装 dotnet （[macOS](https://docs.microsoft.
 
 ## 插件说明
 
-### Sqlsugar
+### SqlSugar
 
 国人开发的 .Net 生态中的 ORM （对象关系映射）框架。主要负责实体类与数据库表的映射关系并提供通用的查询接口。非常之好用！
 
