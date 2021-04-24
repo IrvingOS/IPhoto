@@ -23,7 +23,7 @@ namespace IPhoto.Repositories.Impl
                );*/
         }
 
-        public async Task<int> CountAsync(Expression<Func<TEntity, bool>> func)
+        public new async Task<int> CountAsync(Expression<Func<TEntity, bool>> func)
         {
             return await base.CountAsync(func);
         }
@@ -33,7 +33,7 @@ namespace IPhoto.Repositories.Impl
             return await base.DeleteByIdAsync(id);
         }
 
-        public override async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> func)
+        public new async Task<bool> DeleteAsync(Expression<Func<TEntity, bool>> func)
         {
             return await base.DeleteAsync(func);
         }
