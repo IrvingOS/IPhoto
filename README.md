@@ -3,6 +3,10 @@
 ## 介绍
 在线相册
 
+线上地址：https://photo.isopen.top
+
+Gitee 仓库：[IrvingOS/IPhoto (gitee.com)](https://gitee.com/Irvingsoft/iphoto)
+
 ## 软件架构
 
 1. 工具：Visual studio 2019
